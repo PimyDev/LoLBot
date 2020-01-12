@@ -20,7 +20,7 @@ func postMessage(discord discordgo.Session, channelID string, update lolparser.U
 			Width:    640,
 			Height:   360,
 		},
-		URL: update.Url,}
+		URL: update.Url}
 	_, err := discord.ChannelMessageSendEmbed(channelID, embedMessage)
 	panicif.Err(err)
 }
@@ -46,7 +46,7 @@ func writeLastUpdateUrl(url string) {
 	panicif.Err(err)
 }
 
-func Start(discord discordgo.Session, channelID string)  {
+func Start(discord discordgo.Session, channelID string) {
 	for {
 		updates := lolparser.GetLastUpdates()
 		update := lolparser.GetUpdateInfo(updates[0])
@@ -56,7 +56,7 @@ func Start(discord discordgo.Session, channelID string)  {
 			writeLastUpdateUrl(update.Url)
 			log.Println("Posted new update to channel: " + channelID)
 		}
-		time.Sleep(5*time.Second)
+		log.Println("Check updates. Last update: " + update.Title)
+		time.Sleep(5 * time.Second)
 	}
 }
-
